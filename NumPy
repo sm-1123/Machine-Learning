@@ -208,3 +208,44 @@ Column sorted 2-D array [[ 4 45  2]
 
 Row sorted 2-D array [[ 2 12 45]
  [ 4  9 56]] 
+
+--Reverse--
+
+import numpy as np
+​
+array1 = np.array([2,4,5,7,89])
+rev_array1 = np.flip(array1)
+print("Reversed 1-D Matrix:\n", rev_array1, "\n")
+​
+array2 = np.array([[1,4,6,8,2],[4,56,78,89,90],[23,45,2,5,34],[2,1,0,45,22]])
+rev_rows_array2 = np.flip(array2, axis=0)
+print("Row reversed 2-D Matrix:\n", rev_rows_array2,"\n")
+​
+rev_cols_array2 = np.flip(array2, axis=1)
+print("column reversed 2-D matrix:\n", rev_cols_array2, "\n")
+​
+rev_array2 = np.flip(array2)
+print("Reversed 2-D Matrix:\n", rev_array2, "\n")
+
+OP:
+
+Reversed 1-D Matrix:
+ [89  7  5  4  2] 
+
+Row reversed 2-D Matrix:
+ [[ 2  1  0 45 22]
+ [23 45  2  5 34]
+ [ 4 56 78 89 90]
+ [ 1  4  6  8  2]] 
+
+column reversed 2-D matrix:
+ [[ 2  8  6  4  1]
+ [90 89 78 56  4]
+ [34  5  2 45 23]
+ [22 45  0  1  2]] 
+
+Reversed 2-D Matrix:
+ [[22 45  0  1  2]
+ [34  5  2 45 23]
+ [90 89 78 56  4]
+ [ 2  8  6  4  1]]
