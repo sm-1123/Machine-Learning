@@ -33,3 +33,27 @@ three-dimensional array [[[ 1  2  3  4  5]
 
  [[11 12 13 14 15]
   [16 17 18 19 20]]] 
+
+--Using Functions available in the NumPy Package--
+
+import numpy as np
+​
+array1 = np.arange(6)
+​
+print(array1,"\n")
+​
+array2 = np.arange(4, 16, 2)
+​
+print(array2,"\n")
+​
+array3 = np.arange(4.2, 5, 0.2, dtype = 'float')
+​
+print(array3,"\n")
+
+OP--
+
+[0 1 2 3 4 5] 
+
+[ 4  6  8 10 12 14] 
+
+[4.2 4.4 4.6 4.8] 
