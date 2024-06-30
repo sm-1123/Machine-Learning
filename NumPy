@@ -306,3 +306,4 @@ op:
 
 3.#NumPy array creation[READ-READ-READ]
 
+4.#NumPy - Indexing & Slicing
