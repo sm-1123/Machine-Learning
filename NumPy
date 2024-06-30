@@ -380,3 +380,107 @@ the items column 1 onwards are
 [[ 2  3]
  [ 4  5]
  [ 5 67]]
+
+5.#NumPy REshape
+
+import numpy as np
+originalarray = np.arange(12)
+print("orginal array:\n", originalarray)
+reshapedarray1 = np.arange(12).reshape(3, 4)
+print("\n reshaped array with 3 rows and 4 columns:\n\n", reshapedarray1)
+reshapedarray2 = np.arange(12).reshape(4, 3)
+print("\nreshaped array with 4 rows and 3 columns:\n", reshapedarray2)
+​
+orginal array:
+ [ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+ reshaped array with 3 rows and 4 columns:
+
+ [[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+
+reshaped array with 4 rows and 3 columns:
+ [[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]
+ [ 9 10 11]]
+
+import numpy as np
+originalarray = np.arange(12)
+print("original array:\n", originalarray)
+threedarray = np.arange(12).reshape(2, 3, 2)
+print("\nreshaped array, original to 3d:\n", threedarray)
+
+original array:
+ [ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+reshaped array, original to 3d:
+ [[[ 0  1]
+  [ 2  3]
+  [ 4  5]]
+
+ [[ 6  7]
+  [ 8  9]
+  [10 11]]]
+
+Using Index Order
+
+import numpy as np
+originalarray = np.arange(8)
+print("original array:\n", originalarray)
+reshapedarray1 = np.arange(8).reshape(4, 2, order='c')
+print("\n reshaped arrays with 4 rows and 2 coumns by using c index order:\n", reshapedarray1)
+
+original array:
+ [0 1 2 3 4 5 6 7]
+
+ reshaped arrays with 4 rows and 2 coumns by using c index order:
+ [[0 1]
+ [2 3]
+ [4 5]
+ [6 7]]
+
+Unknown Dimension
+
+import numpy as np
+originaarray = np.arange(12)
+print("original array:\n", originalarray)
+reshapedarray1 = np.arange(12).reshape(3, 4, -1)
+print("\n converted array:\n\n", reshapedarray1)
+
+original array:
+ [0 1 2 3 4 5 6 7]
+
+ converted array:
+
+ [[[ 0]
+  [ 1]
+  [ 2]
+  [ 3]]
+
+ [[ 4]
+  [ 5]
+  [ 6]
+  [ 7]]
+
+ [[ 8]
+  [ 9]
+  [10]
+  [11]]]
+
+Flattening the Array
+
+
+import numpy as np
+twodarray = np.array([[1,2,3],[4,5,6]])
+print("2d array:\n", twodarray)
+flattenedarray = twodarray.reshape(-1)
+print("\nflattened array:\n", flattenedarray)
+
+2d array:
+ [[1 2 3]
+ [4 5 6]]
+
+flattened array:
+ [1 2 3 4 5 6]
