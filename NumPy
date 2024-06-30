@@ -80,3 +80,34 @@ OP:
  [0. 1. 0. 0. 0.]
  [0. 0. 1. 0. 0.]
  [0. 0. 0. 1. 0.]] 
+
+--NumPy.diag--
+
+import numpy as np
+​
+array1 = np.diag([4,5,6,7])
+​
+print(array1,"\n")
+​
+array2 = np.diag([4,5,6], 2)
+​
+print(array2,"\n")
+​
+array3 = np.diag(np.array([[1,2],[3,4]]))
+​
+print(array3,"\n")
+
+OP-
+
+[[4 0 0 0]
+ [0 5 0 0]
+ [0 0 6 0]
+ [0 0 0 7]] 
+
+[[0 0 4 0 0]
+ [0 0 0 5 0]
+ [0 0 0 0 6]
+ [0 0 0 0 0]
+ [0 0 0 0 0]] 
+
+[1 4] 
