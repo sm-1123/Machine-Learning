@@ -1030,3 +1030,124 @@ x = np.searchsorted(arr, [2, 4, 6])
 print(x)
 
 [1 2 3]
+
+
+----NumPy Sorting and Searching
+
+import numpy as np
+​
+a = np.array([[10, 2, 3], [4, 5, 6], [7, 8, 9]])
+​
+print("sorting along the columns:")
+​
+print(np.sort(a))
+​
+print("sortng along the rows:")
+​
+print(np.sort(a, 0))
+​
+data_type = np.dtype([('name', 'S10'),('marks', int)])
+​
+arr = np.array([('Sourav', 200),('John', 234)], dtype = data_type)
+​
+print("sortng data ordered by name")
+​
+print(np.sort(arr, order = 'name'))
+
+sorting along the columns:
+[[ 2  3 10]
+ [ 4  5  6]
+ [ 7  8  9]]
+sortng along the rows:
+[[ 4  2  3]
+ [ 7  5  6]
+ [10  8  9]]
+sortng data ordered by name
+[(b'John', 234) (b'Sourav', 200)]
+
+..numpy.argsort() function
+
+import numpy as np
+​
+a = np.array([90, 29, 89, 12])
+​
+print("Original array:\n", a)
+​
+sort_ind = np.argsort(a)
+​
+print("Printing indeces of sorted data\n", sort_ind)
+​
+#sort_a = a[sort_ind]
+​
+print("Printing sorted array")
+​
+for i in sort_ind:
+    
+    print(a[i], end = " ")
+    
+Original array:
+ [90 29 89 12]
+Printing indeces of sorted data
+ [3 1 2 0]
+Printing sorted array
+12 29 89 90 
+
+..numpy.lexsort() function
+
+import numpy as np
+​
+a = np.array(['a', 'b', 'c', 'd', 'e'])
+​
+b = np.array([12, 90, 380, 12, 122])
+​
+ind = np.lexsort((a, b))
+​
+print("Printing indices of sorted data")
+​
+print(ind)
+​
+print("Using the indices to sort the array:")
+​
+for i in ind:
+    
+    print(a[i], b[i])
+
+Printing indices of sorted data
+[0 3 1 4 2]
+Using the indices to sort the array:
+a 12
+d 12
+b 90
+e 122
+c 380
+
+..numpy.nonzero() function
+
+import numpy as np
+​
+b = np.array([12, 90, 380, 0, 12, 211])
+​
+print("Printing original array:", b)
+​
+print("Printing locations of the non zero elements:")
+​
+print(b.nonzero())
+
+Printing original array: [ 12  90 380   0  12 211]
+Printing locations of the non zero elements:
+(array([0, 1, 2, 4, 5], dtype=int64),)
+
+..numpy.where() function
+
+import numpy as np
+​
+b = np.array([12, 90, 380, 12, 211])
+​
+print(np.where(b>12))
+​
+c = np.array([[20, 24], [21, 23]])
+​
+print(np.where(c>20))
+
+(array([1, 2, 4], dtype=int64),)
+(array([0, 1, 1], dtype=int64), array([1, 0, 1], dtype=int64))
