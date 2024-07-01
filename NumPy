@@ -1151,3 +1151,115 @@ print(np.where(c>20))
 
 (array([1, 2, 4], dtype=int64),)
 (array([0, 1, 1], dtype=int64), array([1, 0, 1], dtype=int64))
+
+
+#Comparing and Filtering NumPy array
+
+Using equal() Method
+
+import numpy as np
+​
+a = np.array([1, 2, 3])
+​
+b = np.array([34, 2, 10])
+​
+out = np.equal(a, b)
+​
+print("The boolean output of the equal function:", out)
+
+The boolean output of the equal function: [False  True False]
+
+..Using greater() Method
+
+import numpy as np
+​
+a = np.array([1, 2, 3])
+​
+b = np.array([34, 2, 10])
+​
+out = np.greater(a, b)
+​
+print("The boolean output of the greater function:", out)
+
+The boolean output of the greater function: [False False False]
+
+..Using array_equal() Method
+
+, out
+import numpy as np
+​
+a = np.array([1, 2, 3])
+​
+b = np.array([34, 2, 10])
+​
+out = np.array_equal(a, b)
+​
+print("The boolean output of the array equal function:", out)
+
+The boolean output of the array equal function: False
+
+..Using allclose() Method
+
+import numpy as np
+​
+a = np.array([1, 2, 3])
+​
+b = np.array([3, 4, 2])
+​
+out = np.allclose(a, b)
+​
+print("The boolean output of the allclose function:", out)
+
+The boolean output of the allclose function: False
+
+..Filtering NumPy Arrays
+
+.Boolean indexing
+
+import numpy as np
+​
+a = np.array([34, 2, 10])
+​
+mask = a > 2
+​
+filtered_array = a[mask]
+​
+print("The output of the boolean indexing:", filtered_array)
+
+The output of the boolean indexing: [34 10]
+
+.Using where() Method
+
+import numpy as np
+​
+a = np.array([34, 2, 10])
+​
+filtered_array  = np.where(a <= 2)
+​
+print("The output of the where function:", filtered_array)
+
+The output of the where function: (array([1], dtype=int64),)
+
+.Using extract() Method
+
+import numpy as np
+​
+a = np.array([34, 2, 10])
+​
+filtered_array = np.extract(a <= 2, a)
+​
+print("The output of the extract function:", filtered_array)
+
+The output of the extract function: [2]
+
+.Using delete() Method
+
+import numpy as np
+​
+a = np.array([34, 2, 10])
+​
+filtered_array = np.delete(a, np.where(a == 2))
+​
+print("The output of the delete function:", filtered_array)
+
+The output of the delete function: [34 10]
