@@ -804,3 +804,64 @@ modified array is:
 45:2
 50:3
 55:4
+
+
+----String Operations in NumPy
+
+1.•• Combining Strings using np.char.add()
+
+import numpy as np
+s1 = np.array(['Hello','World'])
+s2 = np.array([' World',' Revolves'])
+ans = np.char.add(s1, s2)
+​
+print(ans)
+
+['Hello World' 'World Revolves']
+
+2. Repeating Strings using np.char.multiply()
+​
+import numpy as np
+​
+string = np.array(['Wow '])
+repeated = np.char.multiply(string, 3)
+​
+print(repeated)
+
+['Wow Wow Wow ']
+
+3. Capitalizing First Letter using np.char.capitalize()
+
+import numpy as np
+​
+text = np.array(['hello', 'world'])
+capitalized = np.char.capitalize(text)
+​
+print(capitalized)
+
+['Hello' 'World']
+
+4. Changing Case using np.char.lower() and np.char.upper()
+
+import numpy as np
+​
+text = np.array(['Hello', 'World'])
+lower_case = np.char.lower(text)
+upper_case = np.char.upper(text)
+​
+print(lower_case)
+print(upper_case)
+
+['hello' 'world']
+['HELLO' 'WORLD']
+
+5.  Splitting Strings using np.char.split()
+
+import numpy as np
+​
+sentence = np.array(['Python is Fun'])
+words = np.char.split(sentence)
+​
+print(words)
+
+[list(['Python', 'is', 'Fun'])]
