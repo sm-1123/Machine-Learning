@@ -1,1 +1,125 @@
+-------------------------date:02/07/2024-------------------------------------
+..
+import pandas as pd
 
+data = {
+    'Name':['Rahul', 'Rohit', 'Virat'],
+    'Age':[25, 30, 18],
+    'City':['Vizag', 'Mumbai', 'Delhi']
+}
+
+df = pd.DataFrame(data)
+
+print("Original DataFrame:")
+
+print(df)
+
+df['Playing Style'] = ['Classic', 'Hitman', 'Perfectioist']
+
+print("\n DataFrame with a new column:")
+
+print(df)
+
+Original DataFrame:
+    Name  Age    City
+0  Rahul   25   Vizag
+1  Rohit   30  Mumbai
+2  Virat   18   Delhi
+
+ DataFrame with a new column:
+    Name  Age    City Playing Style
+0  Rahul   25   Vizag       Classic
+1  Rohit   30  Mumbai        Hitman
+2  Virat   18   Delhi  Perfectioist
+Features of Pandas
+
+How to create a Series in Pandas
+
+ser
+import pandas as pd
+​
+import numpy as np
+​
+ser = pd.Series()
+​
+print(ser)
+​
+data = np.array(['n', 'i', 'n', 'j', 'a', 's'])
+​
+ser = pd.Series(data)
+​
+print(ser)
+Series([], dtype: float64)
+0    n
+1    i
+2    n
+3    j
+4    a
+5    s
+dtype: object
+C:\Users\Sourav Mukherjee\AppData\Local\Temp\ipykernel_25544\3724197521.py:5: FutureWarning: The default dtype for empty Series will be 'object' instead of 'float64' in a future version. Specify a dtype explicitly to silence this warning.
+  ser = pd.Series()
+How to create a Dataframe in Pandas
+
+df
+import pandas as pd
+​
+df = pd.DataFrame()
+​
+print(df)
+​
+I = ['n', 'i', 'n', 'j', 'a', 's']
+​
+df = pd.DataFrame(I, columns = ['Letters'])
+​
+print(df)
+Empty DataFrame
+Columns: []
+Index: []
+  Letters
+0       n
+1       i
+2       n
+3       j
+4       a
+5       s
+Reading CSV file
+
+import pandas as pd
+​
+data = pd.read_csv('filename.csv')
+​
+print(data.head())
+         date column_name  column_name1  column_name2
+0  2022-01-01           A            10             5
+1  2022-01-01           A            20             6
+2  2022-01-01           B            15             7
+3  2022-01-02           A            12             4
+4  2022-01-02           B            18             6
+Selecting Rows and Columns
+
+import pandas as pd
+​
+data = pd.read_csv('filename.csv')
+​
+subset = data.loc[(data['column_name'] == 'A'), ['column_name1', 'column_name2']]
+​
+print(subset.head())
+   column_name1  column_name2
+0            10             5
+1            20             6
+3            12             4
+6             9             3
+Grouping and Aggregating Data
+
+import pandas as pd
+​
+data = pd.read_csv('filename.csv')
+​
+grouped_data= data.groupby('column_name').agg({'column_name1':'sum', 'column_name2':'mean'})
+​
+print(grouped_data.head())
+             column_name1  column_name2
+column_name                            
+A                      51           4.5
+B                      82           6.4
