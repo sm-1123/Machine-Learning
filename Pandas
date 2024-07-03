@@ -671,3 +671,137 @@ C    44      32
 A    32
 B    52
 C    44
+
+
+Selecting, Extracting and Slicing Dataframes Pandas
+
+import pandas as pd
+​
+df = pd.read_csv(r'C:\Users\Sourav Mukherjee\Dropbox\PC\Downloads\test.csv')
+​
+df.head()
+PassengerId	Pclass	Name	Sex	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked
+0	892	3	Kelly, Mr. James	male	34.5	0	0	330911	7.8292	NaN	Q
+1	893	3	Wilkes, Mrs. James (Ellen Needs)	female	47.0	1	0	363272	7.0000	NaN	S
+2	894	2	Myles, Mr. Thomas Francis	male	62.0	0	0	240276	9.6875	NaN	Q
+3	895	3	Wirz, Mr. Albert	male	27.0	0	0	315154	8.6625	NaN	S
+4	896	3	Hirvonen, Mrs. Alexander (Helga E Lindqvist)	female	22.0	1	1	3101298	12.2875	NaN	S
+Selecting Dataframes
+
+Column Selection
+  Cell In[65], line 1
+    Column Selection
+           ^
+SyntaxError: invalid syntax
+
+
+Column Selection
+
+i
+col_name = df['Name']
+​
+print(col_name)
+0                                  Kelly, Mr. James
+1                  Wilkes, Mrs. James (Ellen Needs)
+2                         Myles, Mr. Thomas Francis
+3                                  Wirz, Mr. Albert
+4      Hirvonen, Mrs. Alexander (Helga E Lindqvist)
+                           ...                     
+413                              Spector, Mr. Woolf
+414                    Oliva y Ocana, Dona. Fermina
+415                    Saether, Mr. Simon Sivertsen
+416                             Ware, Mr. Frederick
+417                        Peter, Master. Michael J
+Name: Name, Length: 418, dtype: object
+Row Selection
+
+i
+selected_row = df.iloc[0]
+​
+print(selected_row)
+PassengerId                 892
+Pclass                        3
+Name           Kelly, Mr. James
+Sex                        male
+Age                        34.5
+SibSp                         0
+Parch                         0
+Ticket                   330911
+Fare                     7.8292
+Cabin                       NaN
+Embarked                      Q
+Name: 0, dtype: object
+Boolean Indexing
+
+filtered
+filtered = df[df['Name'] == 'Kelly,Mr.James']
+​
+print(filtered)
+Empty DataFrame
+Columns: [PassengerId, Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked]
+Index: []
+filtered = df[df['Age']<10]
+​
+filtered.head()
+PassengerId	Pclass	Name	Sex	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked
+21	913	3	Olsen, Master. Artur Karl	male	9.0	0	1	C 17368	3.1708	NaN	S
+80	972	3	Boulos, Master. Akar	male	6.0	1	1	2678	15.2458	NaN	C
+89	981	2	Wells, Master. Ralph Lester	male	2.0	1	1	29103	23.0000	NaN	S
+117	1009	3	Sandstrom, Miss. Beatrice Irene	female	1.0	1	1	PP 9549	16.7000	G6	S
+161	1053	3	Touma, Master. Georges Youssef	male	7.0	1	1	2650	15.2458	NaN	C
+Extracting Dataframes
+
+Integer-based Extraction
+
+extracted_value = df.iat[0, 2]
+​
+print(extracted_value)
+Kelly, Mr. James
+Label-based Extraction
+
+extracted_value = df.at[0,"Fare"]
+​
+print(extracted_value)
+7.8292
+Slicing Dataframes
+
+Integer-based Slicing
+
+sliced_df
+sliced_df = df.iloc[0:3, 0:2]
+​
+print(sliced_df)
+   PassengerId  Pclass
+0          892       3
+1          893       3
+2          894       2
+sliced_df
+sliced_df = df.iloc[:, 0:2]
+​
+print(sliced_df)
+     PassengerId  Pclass
+0            892       3
+1            893       3
+2            894       2
+3            895       3
+4            896       3
+..           ...     ...
+413         1305       3
+414         1306       1
+415         1307       3
+416         1308       3
+417         1309       3
+
+[418 rows x 2 columns]
+Label-based Slicing
+
+sliced_df = df.loc[5:10,"Name":"Age"]
+​
+print(sliced_df)
+                                         Name     Sex   Age
+5                  Svensson, Mr. Johan Cervin    male  14.0
+6                        Connolly, Miss. Kate  female  30.0
+7                Caldwell, Mr. Albert Francis    male  26.0
+8   Abrahim, Mrs. Joseph (Sophie Halaut Easu)  female  18.0
+9                     Davies, Mr. John Samuel    male  21.0
+10                           Ilieff, Mr. Ylio    male   NaN
