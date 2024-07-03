@@ -339,3 +339,335 @@ Pradeep    17
 Tanish     22
 Bhavesh    75
 dtype: int64
+
+
+###Python DataFrame
+
+Empty DataFrame
+
+import pandas as pd
+​
+df = pd.DataFrame
+​
+print(df)
+<class 'pandas.core.frame.DataFrame'>
+DataFrame Using List
+
+i
+import pandas as pd
+​
+list = ['hii','my','name','is','sourav','mukherjee']
+​
+df = pd.DataFrame(list)
+​
+print(df)
+           0
+0        hii
+1         my
+2       name
+3         is
+4     sourav
+5  mukherjee
+Example 2
+
+df
+import pandas as pd
+​
+data = [['Robert',30],['Sam',25],['Diana',20],['Mark',33]]
+​
+labels = ['Name', 'Age']
+​
+df = pd.DataFrame(data, columns=labels)
+​
+print(df)
+     Name  Age
+0  Robert   30
+1     Sam   25
+2   Diana   20
+3    Mark   33
+Example 3
+
+df
+import pandas as pd
+​
+Data = [['Robert',30],['Sam',25],['Diana',20],['Mark',33]]
+​
+Labels = ['Name','Score']
+​
+df = pd.DataFrame(Data, columns=Labels, dtype=float)
+​
+print(df)
+     Name  Score
+0  Robert   30.0
+1     Sam   25.0
+2   Diana   20.0
+3    Mark   33.0
+C:\Users\Sourav Mukherjee\AppData\Local\Temp\ipykernel_18716\495983250.py:7: FutureWarning: Could not cast to float64, falling back to object. This behavior is deprecated. In a future version, when a dtype is passed to 'DataFrame', either all columns will be cast to that dtype, or a TypeError will be raised.
+  df = pd.DataFrame(Data, columns=Labels, dtype=float)
+DataFrame from List of Dict
+
+Example 1
+
+df
+import pandas as pd
+​
+data = [{'X':1,'Y':2,'Z':3},{'X':4,'Y':5,'Z':6}]
+​
+df = pd.DataFrame(data)
+​
+print(df)
+   X  Y  Z
+0  1  2  3
+1  4  5  6
+Example 2
+
+df
+import pandas as pd
+​
+data = [{'X':1,'Y':2,'Z':3},{'X':4,'Y':5}]
+​
+df = pd.DataFrame(data)
+​
+print(df)
+   X  Y    Z
+0  1  2  3.0
+1  4  5  NaN
+.
+import pandas as pd
+​
+data = [{'X':1,'Y':2,'Z':3},{'X':4,'Y':5,'Z':6}]
+​
+row_idx = ['row1','row2']
+​
+col = ['X','Y','Z']
+​
+df = pd.DataFrame(data, index=row_idx, columns = col)
+​
+print(df)
+      X  Y  Z
+row1  1  2  3
+row2  4  5  6
+Example 3
+
+df
+import pandas as pd
+​
+data = [{'X':1,'Y':2,'Z':3},{'X':4,'Y':5,'Z':6}]
+​
+row_idx = ['row1','row2']
+​
+col = ['X','Z']
+​
+df = pd.DataFrame(data, index = row_idx, columns = col)
+​
+print(df)
+      X  Z
+row1  1  3
+row2  4  6
+DataFrame from Dict of Lists
+
+Example
+
+,
+import pandas as pd
+​
+list1 = ['Robert','Sam','Diana','Mark']
+​
+list2 = [30,25,20,33]
+​
+data = {'Name':list1,'Score':list2}
+​
+df = pd.DataFrame(data)
+​
+print(df)
+     Name  Score
+0  Robert     30
+1     Sam     25
+2   Diana     20
+3    Mark     33
+data
+import pandas as pd
+​
+list1 =['Robert','Sam','Diana','Mark']
+​
+list2 = [30, 25]
+​
+data = {'Name':list1,'Score':list2}
+​
+df = pd.DataFrame(data)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[24], line 9
+      5 list2 = [30, 25]
+      7 data = {'Name':list1,'Score':list2}
+----> 9 df = pd.DataFrame(data)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:664, in DataFrame.__init__(self, data, index, columns, dtype, copy)
+    658     mgr = self._init_mgr(
+    659         data, axes={"index": index, "columns": columns}, dtype=dtype, copy=copy
+    660     )
+    662 elif isinstance(data, dict):
+    663     # GH#38939 de facto copy defaults to False only in non-dict cases
+--> 664     mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+    665 elif isinstance(data, ma.MaskedArray):
+    666     import numpy.ma.mrecords as mrecords
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\construction.py:493, in dict_to_mgr(data, index, columns, dtype, typ, copy)
+    489     else:
+    490         # dtype check to exclude e.g. range objects, scalars
+    491         arrays = [x.copy() if hasattr(x, "dtype") else x for x in arrays]
+--> 493 return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\construction.py:118, in arrays_to_mgr(arrays, columns, index, dtype, verify_integrity, typ, consolidate)
+    115 if verify_integrity:
+    116     # figure out the index, if necessary
+    117     if index is None:
+--> 118         index = _extract_index(arrays)
+    119     else:
+    120         index = ensure_index(index)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\construction.py:666, in _extract_index(data)
+    664 lengths = list(set(raw_lengths))
+    665 if len(lengths) > 1:
+--> 666     raise ValueError("All arrays must be of the same length")
+    668 if have_dicts:
+    669     raise ValueError(
+    670         "Mixing dicts with non-Series may lead to ambiguous ordering."
+    671     )
+
+ValueError: All arrays must be of the same length
+
+DataFrame from Dict of Series
+
+Example
+
+df
+import pandas as pd
+​
+data = {'Male':pd.Series([32,52,44],index=['A','B','C']),'Female':pd.Series([23,25,3],index=['A','B','C'])}
+​
+df = pd.DataFrame(data)
+​
+print(df)
+   Male  Female
+A    32      23
+B    52      25
+C    44       3
+Row Operations
+
+Selection Using Label
+
+import pandas as pd
+​
+data = {'Male':pd.Series([32,52,44],index = ['PHYSICS','MATHS','CHEMISTRY']),'Female':pd.Series([23,25,32],index=['PHYSICS','MATHS','CHEMISTRY'])}
+​
+df = pd.DataFrame(data)
+​
+print(df)
+​
+print()
+​
+print(df.loc['CHEMISTRY'])
+           Male  Female
+PHYSICS      32      23
+MATHS        52      25
+CHEMISTRY    44      32
+
+Male      44
+Female    32
+Name: CHEMISTRY, dtype: int64
+Selection Using Integer
+
+import pandas as pd
+​
+data = {'Male':pd.Series([32,52,44],index=['A','B','C']),'Female':pd.Series([23,25,32],index=['A','B','C'])}
+​
+df = pd.DataFrame(data)
+​
+print(df)
+​
+print()
+​
+print(df.iloc[1])
+   Male  Female
+A    32      23
+B    52      25
+C    44      32
+
+Male      52
+Female    25
+Name: B, dtype: int64
+Row Slicing
+
+d
+import pandas as pd
+​
+list1 = ['Aakash','Sarvesh','Smith','Swaraj']
+​
+list2 = [30,25,20,33]
+​
+data = {'Name':list1,'Score':list2}
+​
+df = pd.DataFrame(data)
+​
+print(df)
+​
+print()
+​
+print(df.iloc[1:3])
+      Name  Score
+0   Aakash     30
+1  Sarvesh     25
+2    Smith     20
+3   Swaraj     33
+
+      Name  Score
+1  Sarvesh     25
+2    Smith     20
+Column Operations
+
+Selection Using Label
+
+import pandas as pd
+​
+# Generating data
+data = {'Male' : pd.Series([32, 52, 44], index=['A', 'B', 'C']),
+   'Female' : pd.Series([23, 25, 32], index=['A', 'B', 'C'])}
+​
+df = pd.DataFrame(data)
+print(df)
+print()
+​
+print(df['Male'])
+   Male  Female
+A    32      23
+B    52      25
+C    44      32
+
+A    32
+B    52
+C    44
+Name: Male, dtype: int64
+Selection Using Integer
+
+:, 0:1
+import pandas as pd
+​
+# Generating data
+data = {'Male' : pd.Series([32, 52, 44], index=['A', 'B', 'C']),
+   'Female' : pd.Series([23, 25, 32], index=['A', 'B', 'C'])}
+​
+df = pd.DataFrame(data)
+print(df)
+print()
+​
+print(df.iloc[:, 0:1])
+   Male  Female
+A    32      23
+B    52      25
+C    44      32
+
+   Male
+A    32
+B    52
+C    44
