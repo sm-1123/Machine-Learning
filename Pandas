@@ -184,3 +184,158 @@ Subset of dataFrame is:
      name  age       city
 1  Ninja2   30  Vrindavan
 3  Ninja4   42      Delhi
+
+--------------------------------date:03/07/2024------------------------------------
+
+Labels in Pandas Series
+
+Creating Labels
+
+Manual Label Assignment
+
+import pandas as pd
+​
+data = [12,17,22,75]
+​
+labels = ['Aditya','Pradeep','Tanish','Bhavesh']
+​
+series = pd.Series(data,index=labels)
+​
+print(series)
+Aditya     12
+Pradeep    17
+Tanish     22
+Bhavesh    75
+dtype: int64
+Using Default Numeric Index
+
+import pandas as pd
+​
+data = [12,17,22,75]
+​
+series = pd.Series(data)
+​
+print(series)
+0    12
+1    17
+2    22
+3    75
+dtype: int64
+Date-based Labels
+
+e
+import pandas as pd
+​
+import datetime
+​
+data = [12,17,22,75]
+​
+dates = [datetime.date(2024,9,1),datetime.date(2024,9,2),datetime.date(2024,9,3),datetime.date(2024,9,4)]
+​
+series = pd.Series(data,index=dates)
+​
+print(series)
+2024-09-01    12
+2024-09-02    17
+2024-09-03    22
+2024-09-04    75
+dtype: int64
+Using Python Range
+
+import pandas as pd
+​
+data = [12,17,22,75]
+​
+labels = list(range(1, 5))
+​
+series = pd.Series(data, index=labels)
+​
+print(series)
+1    12
+2    17
+3    22
+4    75
+dtype: int64
+Converting a Dictionary to a Series
+
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+print(series)
+Aditya     12
+Pradeep    17
+Tanish     22
+Bhavesh    75
+dtype: int64
+Accessing Labels Using Label
+
+Using Square Brackets ([ ])
+
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+value_at_Aditya = series['Aditya']
+​
+print(value_at_Aditya)
+12
+Using .loc[ ] Indexer
+
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+value_at_Pradeep = series.loc['Pradeep']
+​
+print(value_at_Pradeep)
+17
+Label-based Slicing
+
+subset
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+subset = series['Pradeep':'Bhavesh']
+​
+print(subset)
+Pradeep    17
+Tanish     22
+Bhavesh    75
+dtype: int64
+Conditional Selection with Labels
+
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+result = series[series > 25]
+​
+print(result)
+Bhavesh    75
+dtype: int64
+Key/Value Objects as Series
+
+import pandas as pd
+​
+data_dict = {'Aditya':12,'Pradeep':17,'Tanish':22,'Bhavesh':75}
+​
+series = pd.Series(data_dict)
+​
+print(series)
+Aditya     12
+Pradeep    17
+Tanish     22
+Bhavesh    75
+dtype: int64
