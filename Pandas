@@ -805,3 +805,215 @@ print(sliced_df)
 8   Abrahim, Mrs. Joseph (Sophie Halaut Easu)  female  18.0
 9                     Davies, Mr. John Samuel    male  21.0
 10                           Ilieff, Mr. Ylio    male   NaN
+
+
+Data Cleaning
+
+import numpy as np
+​
+import pandas as pd
+​
+import seaborn as sns
+​
+import matplotlib.pyplot as plt
+​
+placement_df = pd.read_csv(r'C:\Users\Sourav Mukherjee\Dropbox\PC\Downloads\Placement_Data_Full_Class.csv')
+​
+print(placement_df.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+3    4      M   56.00   Central   52.00   Central     Science     52.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+
+  Degree stream Work exp specialisation  Mba %      status    salary  
+0      Sci&Tech       No         Mkt&HR  58.80      Placed  270000.0  
+1      Sci&Tech      Yes        Mkt&Fin  66.28      Placed  200000.0  
+2     Comm&Mgmt       No        Mkt&Fin  57.80      Placed  250000.0  
+3      Sci&Tech       No         Mkt&HR  59.43  Not Placed       NaN  
+4     Comm&Mgmt       No        Mkt&Fin  55.50      Placed  425000.0  
+print(placement_df.info())
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 215 entries, 0 to 214
+Data columns (total 14 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   Sno             215 non-null    int64  
+ 1   Gender          215 non-null    object 
+ 2   10th %          215 non-null    float64
+ 3   SSC Board       215 non-null    object 
+ 4   12th %          215 non-null    float64
+ 5   HSC Board       215 non-null    object 
+ 6   12th Stream     215 non-null    object 
+ 7   Degree %        215 non-null    float64
+ 8   Degree stream   215 non-null    object 
+ 9   Work exp        215 non-null    object 
+ 10  specialisation  215 non-null    object 
+ 11  Mba %           215 non-null    float64
+ 12  status          215 non-null    object 
+ 13  salary          148 non-null    float64
+dtypes: float64(5), int64(1), object(8)
+memory usage: 23.6+ KB
+None
+print(sns.boxplot(x=placement_df.salary))
+Axes(0.125,0.11;0.775x0.77)
+
+x=placement_df.salary,kde=True
+print(sns.displot(x=placement_df.salary,kde=True))
+<seaborn.axisgrid.FacetGrid object at 0x000001D78E413BD0>
+
+Dropping Columns or Rows with missing values
+
+df_after_dropping_nan_column=placement_df.dropna(axis=1)
+​
+print(df_after_dropping_nan_column.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+3    4      M   56.00   Central   52.00   Central     Science     52.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+
+  Degree stream Work exp specialisation  Mba %      status  
+0      Sci&Tech       No         Mkt&HR  58.80      Placed  
+1      Sci&Tech      Yes        Mkt&Fin  66.28      Placed  
+2     Comm&Mgmt       No        Mkt&Fin  57.80      Placed  
+3      Sci&Tech       No         Mkt&HR  59.43  Not Placed  
+4     Comm&Mgmt       No        Mkt&Fin  55.50      Placed  
+df_after_dropping_nan_rows=placement_df.dropna()
+​
+print(df_after_dropping_nan_rows.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+7    8      M   82.00   Central   64.00   Central     Science     66.00   
+
+  Degree stream Work exp specialisation  Mba %  status    salary  
+0      Sci&Tech       No         Mkt&HR  58.80  Placed  270000.0  
+1      Sci&Tech      Yes        Mkt&Fin  66.28  Placed  200000.0  
+2     Comm&Mgmt       No        Mkt&Fin  57.80  Placed  250000.0  
+4     Comm&Mgmt       No        Mkt&Fin  55.50  Placed  425000.0  
+7      Sci&Tech      Yes        Mkt&Fin  62.14  Placed  252000.0  
+Filling missing values with mean
+
+#filling null values with mean
+​
+placement_df_mean=placement_df.copy()
+​
+placement_df_mean["salary"]=placement_df["salary"].fillna(placement_df["salary"].mean())
+​
+print(placement_df_mean.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+3    4      M   56.00   Central   52.00   Central     Science     52.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+
+  Degree stream Work exp specialisation  Mba %      status         salary  
+0      Sci&Tech       No         Mkt&HR  58.80      Placed  270000.000000  
+1      Sci&Tech      Yes        Mkt&Fin  66.28      Placed  200000.000000  
+2     Comm&Mgmt       No        Mkt&Fin  57.80      Placed  250000.000000  
+3      Sci&Tech       No         Mkt&HR  59.43  Not Placed  288655.405405  
+4     Comm&Mgmt       No        Mkt&Fin  55.50      Placed  425000.000000  
+#filling null values with median
+​
+placement_df_median=placement_df.copy()
+​
+placement_df_median["salary"]=placement_df["salary"].fillna(placement_df["salary"].median())
+​
+print(placement_df_median.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+3    4      M   56.00   Central   52.00   Central     Science     52.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+
+  Degree stream Work exp specialisation  Mba %      status    salary  
+0      Sci&Tech       No         Mkt&HR  58.80      Placed  270000.0  
+1      Sci&Tech      Yes        Mkt&Fin  66.28      Placed  200000.0  
+2     Comm&Mgmt       No        Mkt&Fin  57.80      Placed  250000.0  
+3      Sci&Tech       No         Mkt&HR  59.43  Not Placed  265000.0  
+4     Comm&Mgmt       No        Mkt&Fin  55.50      Placed  425000.0  
+Filling missing values using the mode
+
+#filling null values with mode
+​
+placement_df_mode=placement_df.copy()
+​
+placement_df_mode["salary"]=placement_df["salary"].fillna(placement_df["salary"].mode()[0])
+​
+print(placement_df_mode.head(5))
+   Sno Gender  10th % SSC Board  12th % HSC Board 12th Stream  Degree %  \
+0    1      M   67.00    Others   91.00    Others    Commerce     58.00   
+1    2      M   79.33   Central   78.33    Others     Science     77.48   
+2    3      M   65.00   Central   68.00   Central        Arts     64.00   
+3    4      M   56.00   Central   52.00   Central     Science     52.00   
+4    5      M   85.80   Central   73.60   Central    Commerce     73.30   
+
+  Degree stream Work exp specialisation  Mba %      status    salary  
+0      Sci&Tech       No         Mkt&HR  58.80      Placed  270000.0  
+1      Sci&Tech      Yes        Mkt&Fin  66.28      Placed  200000.0  
+2     Comm&Mgmt       No        Mkt&Fin  57.80      Placed  250000.0  
+3      Sci&Tech       No         Mkt&HR  59.43  Not Placed  300000.0  
+4     Comm&Mgmt       No        Mkt&Fin  55.50      Placed  425000.0  
+Filling the missing values with values that come before or after them
+
+placement_df_bfill=placement_df.copy()
+​
+placement_df_bfill["salary"]=placement_df["salary"].fillna(method='bfill',axis=0).fillna(0)
+​
+placement_df_bfill.head(5)
+Sno	Gender	10th %	SSC Board	12th %	HSC Board	12th Stream	Degree %	Degree stream	Work exp	specialisation	Mba %	status	salary
+0	1	M	67.00	Others	91.00	Others	Commerce	58.00	Sci&Tech	No	Mkt&HR	58.80	Placed	270000.0
+1	2	M	79.33	Central	78.33	Others	Science	77.48	Sci&Tech	Yes	Mkt&Fin	66.28	Placed	200000.0
+2	3	M	65.00	Central	68.00	Central	Arts	64.00	Comm&Mgmt	No	Mkt&Fin	57.80	Placed	250000.0
+3	4	M	56.00	Central	52.00	Central	Science	52.00	Sci&Tech	No	Mkt&HR	59.43	Not Placed	425000.0
+4	5	M	85.80	Central	73.60	Central	Commerce	73.30	Comm&Mgmt	No	Mkt&Fin	55.50	Placed	425000.0
+5
+placement_df_ffill=placement_df.copy()
+​
+placement_df_ffill["salary"]=placement_df["salary"].fillna(method='ffill',axis=0).fillna(0)
+​
+placement_df_ffill.head(5)
+Sno	Gender	10th %	SSC Board	12th %	HSC Board	12th Stream	Degree %	Degree stream	Work exp	specialisation	Mba %	status	salary
+0	1	M	67.00	Others	91.00	Others	Commerce	58.00	Sci&Tech	No	Mkt&HR	58.80	Placed	270000.0
+1	2	M	79.33	Central	78.33	Others	Science	77.48	Sci&Tech	Yes	Mkt&Fin	66.28	Placed	200000.0
+2	3	M	65.00	Central	68.00	Central	Arts	64.00	Comm&Mgmt	No	Mkt&Fin	57.80	Placed	250000.0
+3	4	M	56.00	Central	52.00	Central	Science	52.00	Sci&Tech	No	Mkt&HR	59.43	Not Placed	250000.0
+4	5	M	85.80	Central	73.60	Central	Commerce	73.30	Comm&Mgmt	No	Mkt&Fin	55.50	Placed	425000.0
+Removing duplicate rows
+
+#show all the duplicate values as True except for the first
+​
+print(placement_df.duplicated(subset=None,keep='first'))
+0      False
+1      False
+2      False
+3      False
+4      False
+       ...  
+210    False
+211    False
+212    False
+213    False
+214    False
+Length: 215, dtype: bool
+5
+#dropping second-row assuming that it is the duplicate of the first row 
+​
+placement_df_drop_row=placement_df.drop(placement_df.index[[1]])
+​
+placement_df_drop_row.head(5)
+Sno	Gender	10th %	SSC Board	12th %	HSC Board	12th Stream	Degree %	Degree stream	Work exp	specialisation	Mba %	status	salary
+0	1	M	67.0	Others	91.0	Others	Commerce	58.00	Sci&Tech	No	Mkt&HR	58.80	Placed	270000.0
+2	3	M	65.0	Central	68.0	Central	Arts	64.00	Comm&Mgmt	No	Mkt&Fin	57.80	Placed	250000.0
+3	4	M	56.0	Central	52.0	Central	Science	52.00	Sci&Tech	No	Mkt&HR	59.43	Not Placed	NaN
+4	5	M	85.8	Central	73.6	Central	Commerce	73.30	Comm&Mgmt	No	Mkt&Fin	55.50	Placed	425000.0
+5	6	M	55.0	Others	49.8	Others	Science	67.25	Sci&Tech	Yes	Mkt&Fin	51.58	Not Placed	NaN
+
+Getting relevant or usable form of data from columns
