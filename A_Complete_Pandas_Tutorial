@@ -238,3 +238,372 @@ Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surn
 2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
 3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
 4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.05
+
+7.i Slicing DataFrame
+
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.0	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1	0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0	2
+2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
+4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+# All rows with pclass==3
+df_third_class = df[df['Pclass']==3].reset_index(drop=True)
+​
+df_third_class.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.000000	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	3	Heikkinen, Miss. Laina	1	26.000000	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+2	0	3	Allen, Mr. William Henry	0	35.000000	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+3	0	3	Moran, Mr. James	0	29.699118	0	0	330877	8.4583	NaN	Q	Moran	Mr. James	1	2
+4	0	3	Palsson, Master. Gosta Leonard	0	2.000000	3	1	349909	21.0750	NaN	S	Palsson	Master. Gosta Leonard	1	1
+# Females with age > 60
+df_aged = df[(df['Age']>60) & (df['Gender']=="1")]
+​
+df_aged.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+275	1	1	Andrews, Miss. Kornelia Theodosia	1	63.0	1	0	13502	77.9583	D7	S	Andrews	Miss. Kornelia Theodosia	0	4
+483	1	3	Turkula, Mrs. (Hedwig)	1	63.0	0	0	4134	9.5875	NaN	S	Turkula	Mrs. (Hedwig)	0	4
+829	1	1	Stone, Mrs. George Nelson (Martha Evelyn)	1	62.0	0	0	113572	80.0000	B28	NaN	Stone	Mrs. George Nelson (Martha Evelyn)	0	4
+# Selecting some columns.
+df1 = df[['Age','Pclass','Gender']]
+​
+df1.head()
+Age	Pclass	Gender
+0	22.0	3	0
+1	38.0	1	1
+2	26.0	3	1
+3	35.0	1	1
+4	35.0	3	0
+# Select numerical columns only
+numerics = ['int16', 'int32', 'int64','float16','float32','float64']
+​
+df_num = df.select_dtypes(include=numerics)
+​
+df_num.head()
+Survived	Pclass	Age	SibSp	Parch	Fare	Third&Men	Age_group
+0	0	3	22.0	1	0	7.2500	1	2
+1	1	1	38.0	1	0	71.2833	0	2
+2	1	3	26.0	0	0	7.9250	0	2
+3	1	1	35.0	1	0	53.1000	0	2
+4	0	3	35.0	0	0	8.0500	1	2
+# categorical columns
+df_cat = df.select_dtypes(include=['object'])
+​
+df_cat.head()
+Full Name	Gender	Ticket	Cabin	Embarked	Surname	Name
+0	Braund, Mr. Owen Harris	0	A/5 21171	NaN	S	Braund	Mr. Owen Harris
+1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	PC 17599	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)
+2	Heikkinen, Miss. Laina	1	STON/O2. 3101282	NaN	S	Heikkinen	Miss. Laina
+3	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	113803	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)
+4	Allen, Mr. William Henry	0	373450	NaN	S	Allen	Mr. William Henry
+7.ii Slicing using iloc and loc
+
+loc
+
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.0	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1	0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0	2
+2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
+4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+# First 100 rows & all columns
+df_sub1=df.iloc[0:100,:]
+​
+df_sub1.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.0	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1	0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0	2
+2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
+4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+#First 250 rows with a subset of columns
+df_sub2=df.iloc[:250,[1,8]]
+​
+df_sub2.head()
+Pclass	Fare
+0	3	7.2500
+1	1	71.2833
+2	3	7.9250
+3	1	53.1000
+4	3	8.0500
+loc
+
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.0	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1	0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0	2
+2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
+4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+df_sub3=df.loc[:500,:]
+# Gender and age of age >50
+df_sub4=df.loc[(df['Age']>50),['Gender','Age']]
+​
+df_sub4.head()
+Gender	Age
+6	0	54.0
+11	1	58.0
+15	1	55.0
+33	0	66.0
+54	0	65.0
+Adding a row
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3	Braund, Mr. Owen Harris	0	22.0	1	0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1	2
+1	1	1	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1	0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0	2
+2	1	3	Heikkinen, Miss. Laina	1	26.0	0	0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0	2
+3	1	1	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1	0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0	2
+4	0	3	Allen, Mr. William Henry	0	35.0	0	0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1	2
+# Adding row using 'append' function
+row=dict({'Age':24,'Full Name':'Peter','Survived':'Y'})
+​
+df=df.append(row,ignore_index=True)
+# assumes Nan for absent keys(columns)
+​
+df.tail()
+C:\Users\Sourav Mukherjee\AppData\Local\Temp\ipykernel_32188\2967740435.py:4: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  df=df.append(row,ignore_index=True)
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+887	1	1.0	Graham, Miss. Margaret Edith	1	19.000000	0.0	0.0	112053	30.00	B42	S	Graham	Miss. Margaret Edith	0.0	2.0
+888	0	3.0	Johnston, Miss. Catherine Helen "Carrie"	1	29.699118	1.0	2.0	W./C. 6607	23.45	NaN	S	Johnston	Miss. Catherine Helen "Carrie"	0.0	2.0
+889	1	1.0	Behr, Mr. Karl Howell	0	26.000000	0.0	0.0	111369	30.00	C148	C	Behr	Mr. Karl Howell	0.0	2.0
+890	0	3.0	Dooley, Mr. Patrick	0	32.000000	0.0	0.0	370376	7.75	NaN	Q	Dooley	Mr. Patrick	1.0	2.0
+891	Y	NaN	Peter	NaN	24.000000	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
+# Adding new row using loc
+df.loc[len(df.index)]=row
+​
+df.tail()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+888	0	3.0	Johnston, Miss. Catherine Helen "Carrie"	1	29.699118	1.0	2.0	W./C. 6607	23.45	NaN	S	Johnston	Miss. Catherine Helen "Carrie"	0.0	2.0
+889	1	1.0	Behr, Mr. Karl Howell	0	26.000000	0.0	0.0	111369	30.00	C148	C	Behr	Mr. Karl Howell	0.0	2.0
+890	0	3.0	Dooley, Mr. Patrick	0	32.000000	0.0	0.0	370376	7.75	NaN	Q	Dooley	Mr. Patrick	1.0	2.0
+891	Y	NaN	Peter	NaN	24.000000	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
+892	Y	NaN	Peter	NaN	24.000000	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
+Dropping row(s
+# Deletes last row
+df=df.drop(df.index[-1],axis=0)
+​
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3.0	Braund, Mr. Owen Harris	0	22.0	1.0	0.0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1.0	2.0
+1	1	1.0	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1.0	0.0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0.0	2.0
+2	1	3.0	Heikkinen, Miss. Laina	1	26.0	0.0	0.0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0.0	2.0
+3	1	1.0	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1.0	0.0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0.0	2.0
+4	0	3.0	Allen, Mr. William Henry	0	35.0	0.0	0.0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1.0	2.0
+Sorting
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+0	0	3.0	Braund, Mr. Owen Harris	0	22.0	1.0	0.0	A/5 21171	7.2500	NaN	S	Braund	Mr. Owen Harris	1.0	2.0
+1	1	1.0	Cumings, Mrs. John Bradley (Florence Briggs Th...	1	38.0	1.0	0.0	PC 17599	71.2833	C85	C	Cumings	Mrs. John Bradley (Florence Briggs Thayer)	0.0	2.0
+2	1	3.0	Heikkinen, Miss. Laina	1	26.0	0.0	0.0	STON/O2. 3101282	7.9250	NaN	S	Heikkinen	Miss. Laina	0.0	2.0
+3	1	1.0	Futrelle, Mrs. Jacques Heath (Lily May Peel)	1	35.0	1.0	0.0	113803	53.1000	C123	S	Futrelle	Mrs. Jacques Heath (Lily May Peel)	0.0	2.0
+4	0	3.0	Allen, Mr. William Henry	0	35.0	0.0	0.0	373450	8.0500	NaN	S	Allen	Mr. William Henry	1.0	2.0
+# sorting by age say in decreasing order.
+df=df.sort_values(by=['Age'],ascending=False)
+# can specify multiple columns in a list as well.
+​
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+630	1	1.0	Barkworth, Mr. Algernon Henry Wilson	0	80.0	0.0	0.0	27042	30.0000	A23	S	Barkworth	Mr. Algernon Henry Wilson	0.0	4.0
+851	0	3.0	Svensson, Mr. Johan	0	74.0	0.0	0.0	347060	7.7750	NaN	S	Svensson	Mr. Johan	1.0	4.0
+96	0	1.0	Goldschmidt, Mr. George B	0	71.0	0.0	0.0	PC 17754	34.6542	A5	C	Goldschmidt	Mr. George B	0.0	4.0
+493	0	1.0	Artagaveytia, Mr. Ramon	0	71.0	0.0	0.0	PC 17609	49.5042	NaN	C	Artagaveytia	Mr. Ramon	0.0	4.0
+116	0	3.0	Connors, Mr. Patrick	0	70.5	0.0	0.0	370369	7.7500	NaN	Q	Connors	Mr. Patrick	1.0	4.0
+Joins
+Let's create two separate data frames and try all 5 (Cross,Inner, Left, Right,and Outer Joins).
+
+sno = [i+1 for i in range(100)]
+​
+marks = np.random.randint(100,size=100)
+​
+print(len(marks))
+​
+marks_df=pd.DataFrame({'Sno':sno,'Marks':marks})
+​
+marks_df.head()
+100
+Sno	Marks
+0	1	71
+1	2	44
+2	3	84
+3	4	13
+4	5	65
+sno=[i+1 for i in range(100)]
+​
+age=np.random.randint(10,size=100)
+​
+print(len(age))
+​
+age_df=pd.DataFrame({'Sno':sno,'Age':age})
+​
+age_df.head()
+100
+Sno	Age
+0	1	0
+1	2	9
+2	3	1
+3	4	2
+4	5	0
+Cross join
+
+cross_join=pd.merge(marks_df,age_df,how='cross')
+​
+print(cross_join.shape)
+​
+cross_join.head()
+(10000, 4)
+Sno_x	Marks	Sno_y	Age
+0	1	71	1	0
+1	1	71	2	9
+2	1	71	3	1
+3	1	71	4	2
+4	1	71	5	0
+Inner Join
+
+inner_join=pd.merge(age_df,marks_df,how='inner',on='Sno')
+# 'how' defaults to 'inner' only.
+​
+print(inner_join.shape)
+​
+inner_join.head()
+(100, 3)
+Sno	Age	Marks
+0	1	0	71
+1	2	9	44
+2	3	1	84
+3	4	2	13
+4	5	0	65
+Left and Right Outer Join(s)
+
+Lets add some more rows to either frame so that left and right outer join makes sense
+
+:
+age_df.loc[len(age_df.index)]={'Sno':101,'Age':23}
+age_df.loc[len(age_df.index)]={'Sno':102,'Age':27}
+age_df.loc[len(age_df.index)]={'Sno':104,'Age':29}
+age_df.loc[len(age_df.index)]={'Sno':103,'Age':32}
+age_df.loc[len(age_df.index)]={'Sno':105,'Age':53}
+left_join=pd.merge(age_df,marks_df,how='left',on='Sno')
+​
+print(left_join.shape)
+​
+left_join.tail()
+(105, 3)
+Sno	Age	Marks
+100	101	23	NaN
+101	102	27	NaN
+102	104	29	NaN
+103	103	32	NaN
+104	105	53	NaN
+#right join
+right_join=pd.merge(marks_df,age_df,how='right',on='Sno')
+​
+print(right_join.shape)
+​
+right_join.tail()
+(105, 3)
+Sno	Marks	Age
+100	101	NaN	23
+101	102	NaN	27
+102	104	NaN	29
+103	103	NaN	32
+104	105	NaN	53
+ull outer join¶ One last time, lets modify the marks frame also to test Full outer join.
+
+marks_df.loc[len(marks_df.index)]={'Sno':106,'Marks':79}
+​
+marks_df.tail()
+Sno	Marks
+96	97	41
+97	98	4
+98	99	60
+99	100	60
+100	106	79
+10
+#outer join
+out_join=pd.merge(marks_df,age_df,how='outer',on='Sno')
+​
+print(out_join.shape)
+​
+out_join.tail(10)
+(106, 3)
+Sno	Marks	Age
+96	97	41.0	2.0
+97	98	4.0	7.0
+98	99	60.0	9.0
+99	100	60.0	7.0
+100	106	79.0	NaN
+101	101	NaN	23.0
+102	102	NaN	27.0
+103	104	NaN	29.0
+104	103	NaN	32.0
+105	105	NaN	53.0
+Groupby¶ Let's get back to our titanic dataset.
+df.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+630	1	1.0	Barkworth, Mr. Algernon Henry Wilson	0	80.0	0.0	0.0	27042	30.0000	A23	S	Barkworth	Mr. Algernon Henry Wilson	0.0	4.0
+851	0	3.0	Svensson, Mr. Johan	0	74.0	0.0	0.0	347060	7.7750	NaN	S	Svensson	Mr. Johan	1.0	4.0
+96	0	1.0	Goldschmidt, Mr. George B	0	71.0	0.0	0.0	PC 17754	34.6542	A5	C	Goldschmidt	Mr. George B	0.0	4.0
+493	0	1.0	Artagaveytia, Mr. Ramon	0	71.0	0.0	0.0	PC 17609	49.5042	NaN	C	Artagaveytia	Mr. Ramon	0.0	4.0
+116	0	3.0	Connors, Mr. Patrick	0	70.5	0.0	0.0	370369	7.7500	NaN	Q	Connors	Mr. Patrick	1.0	4.0
+groups=df.groupby(['Pclass'])
+​
+groups.get_group(1)
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+630	1	1.0	Barkworth, Mr. Algernon Henry Wilson	0	80.00	0.0	0.0	27042	30.0000	A23	S	Barkworth	Mr. Algernon Henry Wilson	0.0	4.0
+96	0	1.0	Goldschmidt, Mr. George B	0	71.00	0.0	0.0	PC 17754	34.6542	A5	C	Goldschmidt	Mr. George B	0.0	4.0
+493	0	1.0	Artagaveytia, Mr. Ramon	0	71.00	0.0	0.0	PC 17609	49.5042	NaN	C	Artagaveytia	Mr. Ramon	0.0	4.0
+745	0	1.0	Crosby, Capt. Edward Gifford	0	70.00	1.0	1.0	WE/P 5735	71.0000	B22	S	Crosby	Capt. Edward Gifford	0.0	4.0
+54	0	1.0	Ostby, Mr. Engelhart Cornelius	0	65.00	0.0	1.0	113509	61.9792	B30	C	Ostby	Mr. Engelhart Cornelius	0.0	4.0
+...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...
+435	1	1.0	Carter, Miss. Lucile Polk	1	14.00	1.0	2.0	113760	120.0000	B96 B98	S	Carter	Miss. Lucile Polk	0.0	1.0
+802	1	1.0	Carter, Master. William Thornton II	0	11.00	1.0	2.0	113760	120.0000	B96 B98	S	Carter	Master. William Thornton II	0.0	1.0
+445	1	1.0	Dodge, Master. Washington	0	4.00	0.0	2.0	33638	81.8583	A34	S	Dodge	Master. Washington	0.0	1.0
+297	0	1.0	Allison, Miss. Helen Loraine	1	2.00	1.0	2.0	113781	151.5500	C22 C26	S	Allison	Miss. Helen Loraine	0.0	1.0
+305	1	1.0	Allison, Master. Hudson Trevor	0	0.92	1.0	2.0	113781	151.5500	C22 C26	S	Allison	Master. Hudson Trevor	0.0	1.0
+216 rows × 15 columns
+
+Average Age per Pclass
+
+df_grp1=df.groupby(['Pclass'])
+​
+df_grp1.head()
+Survived	Pclass	Full Name	Gender	Age	SibSp	Parch	Ticket	Fare	Cabin	Embarked	Surname	Name	Third&Men	Age_group
+630	1	1.0	Barkworth, Mr. Algernon Henry Wilson	0	80.0	0.0	0.0	27042	30.0000	A23	S	Barkworth	Mr. Algernon Henry Wilson	0.0	4.0
+851	0	3.0	Svensson, Mr. Johan	0	74.0	0.0	0.0	347060	7.7750	NaN	S	Svensson	Mr. Johan	1.0	4.0
+96	0	1.0	Goldschmidt, Mr. George B	0	71.0	0.0	0.0	PC 17754	34.6542	A5	C	Goldschmidt	Mr. George B	0.0	4.0
+493	0	1.0	Artagaveytia, Mr. Ramon	0	71.0	0.0	0.0	PC 17609	49.5042	NaN	C	Artagaveytia	Mr. Ramon	0.0	4.0
+116	0	3.0	Connors, Mr. Patrick	0	70.5	0.0	0.0	370369	7.7500	NaN	Q	Connors	Mr. Patrick	1.0	4.0
+745	0	1.0	Crosby, Capt. Edward Gifford	0	70.0	1.0	1.0	WE/P 5735	71.0000	B22	S	Crosby	Capt. Edward Gifford	0.0	4.0
+672	0	2.0	Mitchell, Mr. Henry Michael	0	70.0	0.0	0.0	C.A. 24580	10.5000	NaN	S	Mitchell	Mr. Henry Michael	0.0	4.0
+33	0	2.0	Wheadon, Mr. Edward H	0	66.0	0.0	0.0	C.A. 24579	10.5000	NaN	S	Wheadon	Mr. Edward H	0.0	4.0
+280	0	3.0	Duane, Mr. Frank	0	65.0	0.0	0.0	336439	7.7500	NaN	Q	Duane	Mr. Frank	1.0	4.0
+54	0	1.0	Ostby, Mr. Engelhart Cornelius	0	65.0	0.0	1.0	113509	61.9792	B30	C	Ostby	Mr. Engelhart Cornelius	0.0	4.0
+483	1	3.0	Turkula, Mrs. (Hedwig)	1	63.0	0.0	0.0	4134	9.5875	NaN	S	Turkula	Mrs. (Hedwig)	0.0	4.0
+570	1	2.0	Harris, Mr. George	0	62.0	0.0	0.0	S.W./PP 752	10.5000	NaN	S	Harris	Mr. George	0.0	4.0
+326	0	3.0	Nysveen, Mr. Johan Hansen	0	61.0	0.0	0.0	345364	6.2375	NaN	S	Nysveen	Mr. Johan Hansen	1.0	4.0
+684	0	2.0	Brown, Mr. Thomas William Solomon	0	60.0	1.0	1.0	29750	39.0000	NaN	S	Brown	Mr. Thomas William Solomon	0.0	4.0
+232	0	2.0	Sjostedt, Mr. Ernst Adolf	0	59.0	0.0	0.0	237442	13.5000	NaN	S	Sjostedt	Mr. Ernst Adolf	0.0	3.0
+df_grp1['Age'].mean()
+Pclass
+1.0    37.048118
+2.0    29.866958
+3.0    26.403259
+Name: Age, dtype: float64
+# Min/Max age per Pclass
+df_grp1['Age'].min()
+Pclass
+1.0    0.92
+2.0    0.67
+3.0    0.42
+Name: Age, dtype: float64
+# Count
+df_grp1['Age'].count()
+Pclass
+1.0    216
+2.0    184
+3.0    491
+Name: Age, dtype: int64
