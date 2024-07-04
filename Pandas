@@ -1410,3 +1410,108 @@ print(unique_cities)
  'Salem' 'Shimla' 'Siliguri' 'Srinagar' 'Surat' 'Thrissur' 'Tirupati'
  'Trichy' 'Trivandrum' 'Udaipur' 'Varanasi' 'Vellore' 'Vijayawada' 'Vizag'
  'Vadodara']
+
+
+###Normal plot
+
+import pandas as pd
+​
+import numpy as np
+​
+p_df = pd.DataFrame(np.random.rand(15, 4), columns = ["A", "B", "C", "D"])
+​
+p_df.plot(figsize = (15, 6))
+<Axes: >
+
+import matplotlib.pyplot as plt
+​
+import pandas as pd
+​
+import numpy as np
+​
+p_df = pd.DataFrame(np.random.rand(15, 4), columns = ["A", "B", "C", "D"])
+​
+figure, axes = plt.subplots(2, 2)
+​
+figure.set_figheight(12)
+​
+figure.set_figwidth(15)
+​
+p_df.plot.bar(ax=axes[0][0])
+​
+p_df.plot.bar(stacked=True, color=["red", "orange", "green", "darkblue"], ax=axes[0][1])
+​
+p_df.plot.barh(ax=axes[1][0])
+​
+p_df.plot.barh(stacked=True, ax=axes[1][1])
+​
+plt.show()
+
+Histogram
+
+import matplotlib.pyplot as plt
+​
+import pandas as pd
+​
+import numpy as np
+​
+p_df = pd.DataFrame(
+     {
+         "a": np.random.randn(1000) + 1,
+         "b": np.random.randn(1000),
+         "c": np.random.randn(1000) - 1,
+     },
+     columns=["a", "b", "c"],
+)
+​
+figure, axes = plt.subplots(2, 2)
+​
+figure.set_figheight(12)
+​
+figure.set_figwidth(15)
+​
+p_df.plot.hist(alpha=0.3, ax=axes[0][0])
+​
+p_df.plot.hist(stacked=True, ax=axes[0][1])
+​
+p_df.plot.hist(orientation="horizontal", ax=axes[1][0], cumulative=True, color="red", alpha=0.4)
+​
+p_df["a"].diff().hist(ax=axes[1][1])
+​
+plt.show()
+
+Scatter plot
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+​
+p_df = pd.DataFrame(np.random.rand(100, 4), columns=["A", "B", "C", "D"])
+​
+figure, axes = plt.subplots(2, 2)
+figure.set_figheight(12)
+figure.set_figwidth(15)
+​
+p_df.plot.scatter(x="A", y="B", color="red", ax=axes[0][0])
+​
+p_df.plot.scatter(x="A", y="B", c="C", s=50, ax=axes[0][1])
+​
+p_df.plot.scatter(x="A", y="B", c="C", cmap="viridis", s=50, ax=axes[1][0])
+​
+p_df.plot.scatter(x="A", y="B", s=p_df["C"]*200, ax=axes[1][1])
+​
+plt.show()
+
+Hexbin plots
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+​
+p_df = pd.DataFrame(np.random.randn(500, 2), columns=["a", "b"])
+​
+p_df["b"] = p_df["b"] + np.arange(500)
+​
+p_df.plot.hexbin(x="a", y="b", gridsize=25)
+​
+plt.show()
