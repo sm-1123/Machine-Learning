@@ -1,1 +1,11 @@
+P1:Create a dataframe from List:
 
+import pandas as pd
+
+def createDataframe(student_data: List[List[int]]) -> pd.DataFrame:
+
+    columns_names = ["student_id", "age"]
+
+    result_data = pd.DataFrame(student_data, columns = columns_names)
+
+    return result_data
