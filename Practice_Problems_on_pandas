@@ -9,3 +9,11 @@ def createDataframe(student_data: List[List[int]]) -> pd.DataFrame:
     result_data = pd.DataFrame(student_data, columns = columns_names)
 
     return result_data
+
+P2:Get the size of a dataframe:
+
+import pandas as pd
+
+def getDataframeSize(players: pd.DataFrame) -> List[int]:
+
+    return [players.shape[0], players.shape[1]]
